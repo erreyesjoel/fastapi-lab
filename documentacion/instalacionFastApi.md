@@ -28,3 +28,37 @@ source venv/bin/activate
 ```
 ## NOTA
 - pip install -r requirements.txt -> Instala todas las dependencias listadas en el archivo requirements.txt
+
+4. Donde guardaré main.py
+```bash
+(venv) joel-erreyes:~/docsjoel/proyectos personales/fastapi-lab$ mkdir app
+(venv) joel-erreyes:~/docsjoel/proyectos personales/fastapi-lab$ touch app/main.py
+```
+5. Crear la aplicacion como tal en main.py
+- En principio con esto ya la tenemos creada, y ya podremos ir haciendo rutas
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+```
+6. Definimos una ruta de prueba
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+# ruta de prueba
+@app.get('/')
+def home():
+    return "Hola mundo!"
+```
+- Para ejecutar y poder ver nuestra api en web local
+```bash
+uvicorn main:app 
+```
+- Pero como yo tengo el puerto 8000 ocupado, lo hago con el 8002
+```bash
+uvicorn main:app --reload --port 8002
+```
+- Si vamos a http://127.0.0.1:8002/
+- Nos devuelve un hola mundo
