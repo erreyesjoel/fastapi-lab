@@ -1,0 +1,47 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.log
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# --- FastAPI / Uvicorn ---
+# Cache and temporary files
+*.db
+*.sqlite3
+*.sqlite
+*.pid
+
+# --- PyCharm / JetBrains ---
+.idea/
+*.iml
+out/
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Testing ---
+.coverage
+htmlcov/
+.cache/
+pytest_cache/
+
+# --- Misc ---
+*.swp
+*.swo
