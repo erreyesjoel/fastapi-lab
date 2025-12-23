@@ -18,7 +18,7 @@ arrayGhostfaces = [
     {
      "pelicula_id": 2,
      "nombre1": "Mickey Altieri",
-     "nombre2": "NancyLoomis",
+     "nombre2": "Nancy Loomis",
      "ghostfaces": 2,
     },
     {
@@ -60,3 +60,19 @@ def queryGhostfaces(ghostfaces: int):
         if peli.get('ghostfaces') == ghostfaces:
             resultados.append(peli)  # ...la añadimos a la lista de resultados
     return resultados  # devolvemos todas las coincidencias
+
+# API POST de prueba: añadir una nueva película/ghostface al array en memoria
+@app.post('/scream1')
+# En Python, los parámetros obligatorios van primero; los opcionales (con valor por defecto) al final
+def scream1Ghostfaces(pelicula_id: int, nombre1: str, ghostfaces: int, nombre2: str | None = None):
+    # Creamos el diccionario con los datos recibidos (simulando un registro, ya que no hay base de datos)
+    nuevo = {
+        'pelicula_id': pelicula_id,
+        'nombre1': nombre1,
+        'nombre2': nombre2,  # Puede ser None si no se envía
+        'ghostfaces': ghostfaces
+    }
+    # Guardamos el nuevo registro en el array en memoria
+    arrayGhostfaces.append(nuevo)
+    # Devolvemos el objeto creado como respuesta
+    return nuevo
