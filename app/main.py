@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import copy # para guardar copias o copiar
 
 app = FastAPI()
 
@@ -39,6 +40,8 @@ arrayGhostfaces = [
      "ghostfaces": 2,
     },
 ]
+# para poder restaurar el contenido si es modificado por alguna api post, put, delete o patch
+arrayOriginal = copy.deepcopy(arrayGhostfaces)
 @app.get('/scream-ghostfaces/{pelicula_id}')
 def ghostfaces(pelicula_id: int): # debemos indicar el tipo que pasamos por la url, pasamos un id, entonces int, asi no hay confusiones y nuestra api funcionará
     for ghostface in arrayGhostfaces : # bucle para devolverlos, le damos nombre ghostface que recorre el array -> arrayGhostfaces
@@ -76,3 +79,44 @@ def scream1Ghostfaces(pelicula_id: int, nombre1: str, ghostfaces: int, nombre2: 
     arrayGhostfaces.append(nuevo)
     # Devolvemos el objeto creado como respuesta
     return nuevo
+
+# api put, put reemplaza completamente un registro
+@app.put('/scream-ghostfaces/{pelicula_id}')
+def actualizarGhostface(pelicula_id: int, nombre1: str, ghostfaces: int, nombre2: str | None = None):
+    for ghostface in arrayGhostfaces:
+        if ghostface["pelicula_id"] == pelicula_id:
+            ghostface["nombre1"] = nombre1
+            ghostface["nombre2"] = nombre2
+            ghostface["ghostfaces"] = ghostfaces
+            return ghostface
+    return {"error": "Ghostface no encontrado"}
+
+# api patch, actualiza parcialmente, no todo el registro
+@app.patch('/scream-ghostfaces/{pelicula_id}')
+def patchGhostface(pelicula_id: int, nombre1: str | None = None, nombre2: str | None = None, ghostfaces: int | None = None):
+    for ghostface in arrayGhostfaces:
+        if ghostface["pelicula_id"] == pelicula_id:
+            if nombre1 is not None:
+                ghostface["nombre1"] = nombre1
+            if nombre2 is not None:
+                ghostface["nombre2"] = nombre2
+            if ghostfaces is not None:
+                ghostface["ghostfaces"] = ghostfaces
+            return ghostface
+    return {"error": "Ghostface no encontrado"}
+
+# api delete
+@app.delete('/scream-ghostfaces/{pelicula_id}')
+def eliminarGhostface(pelicula_id: int):
+    for i, ghostface in enumerate(arrayGhostfaces):
+        if ghostface["pelicula_id"] == pelicula_id:
+            eliminado = arrayGhostfaces.pop(i)
+            return {"mensaje": "Ghostface eliminado", "data": eliminado}
+    return {"error": "Ghostface no encontrado"}
+
+# api para resetear y dejar el contenido original del array, si es modificado
+@app.post('/reset')
+def resetear():
+    global arrayGhostfaces
+    arrayGhostfaces = copy.deepcopy(arrayOriginal)
+    return {"mensaje": "Array restaurado al estado original", "data": arrayGhostfaces}
