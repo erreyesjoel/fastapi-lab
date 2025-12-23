@@ -24,19 +24,19 @@ arrayGhostfaces = [
     {
      "pelicula_id": 3,
      "nombre1": "Roman Bridger",
-     "ghostface": 1,
+     "ghostfaces": 1,
     },
     {
      "pelicula_id": 4,
      "nombre1": "Jill Roberts",
      "nombre2": "Charlie Walker",
-     "ghostface": 2,
+     "ghostfaces": 2,
     },
     {
      "pelicula_id": 5,
      "nombre1": "Amber Freeman",
      "nombre2": "Richie",
-     "ghostface": 2,
+     "ghostfaces": 2,
     },
 ]
 @app.get('/scream-ghostfaces/{pelicula_id}')
@@ -49,3 +49,14 @@ def ghostfaces(pelicula_id: int): # debemos indicar el tipo que pasamos por la u
 @app.get('/scream-ghostfaces') # en esta api, DEVOLVEMOS TODOS LOS GHOSTFACES
 def devolverGhostfaces():
     return arrayGhostfaces
+
+# Querystring: devolver las películas de Scream según el número de ghostfaces que tienen
+@app.get('/ghostfaces')
+def queryGhostfaces(ghostfaces: int):
+    resultados = []  # lista vacía donde guardaremos las películas que coincidan
+    # Recorremos todas las películas del array
+    for peli in arrayGhostfaces:
+        # Si el número de ghostfaces de la película coincide con el parámetro recibido...
+        if peli.get('ghostfaces') == ghostfaces:
+            resultados.append(peli)  # ...la añadimos a la lista de resultados
+    return resultados  # devolvemos todas las coincidencias
