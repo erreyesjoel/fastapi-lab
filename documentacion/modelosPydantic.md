@@ -81,3 +81,6 @@ def crear_pelicula(peli: Pelicula):
 **Con modelos → código limpio, validado y profesional**
 
 **FastAPI usa estos modelos para generar Swagger automáticamente**
+
+# NOTA
+- En nuestro Swagger, veremos nuestro modelo de datos o Pydantic en el apartado de 'Schemas'
