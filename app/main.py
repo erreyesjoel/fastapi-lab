@@ -120,3 +120,4 @@ def resetear():
     global arrayGhostfaces
     arrayGhostfaces = copy.deepcopy(arrayOriginal)
     return {"mensaje": "Array restaurado al estado original", "data": arrayGhostfaces}
+
