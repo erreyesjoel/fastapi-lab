@@ -1,4 +1,4 @@
-**# Modelos Pydantic
+# Modelos Pydantic
 ### Modelo Pydantic = Modelo de datos
 ## En que consiste un modelo de datos?
 - Un modelo de datos es una estructura que define cómo debe ser un objeto:
